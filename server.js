@@ -2,6 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const questionRoutes = require('./routes/questionRoutes');
 const resultRoutes = require('./routes/resultRoutes');
+const hardnessRoutes = require('./routes/hardnessRoutes');
+const gradeRoutes = require("./routes/gradeRoutes")
+
 const sequelize = require('./config/db');
 const dotenv = require("dotenv")
 
@@ -13,6 +16,8 @@ app.use(express.json());
 
 app.use('/api', questionRoutes);
 app.use('/api', resultRoutes);
+app.use('/api', hardnessRoutes)
+app.use('/api', gradeRoutes)
 
 sequelize.sync()
   .then(() => console.log('Database synced'))
