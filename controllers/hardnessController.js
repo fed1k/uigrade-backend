@@ -17,7 +17,7 @@ exports.addHardnessLevel = async (req, res) => {
         if (!name || !point) res.json({error: "Fill all fields please"})
 
         const newLevel = await Hardness.create({ name, point });
-        res.json(newLevel);
+        res.json({status: 200, data: newLevel});
     } catch (err) {
         res.status(500).json({ error: "Error adding hardness level" })
     }
@@ -66,7 +66,7 @@ exports.deleteHardnessLevel = async (req, res) => {
         await deletedHardnessRecord.destroy();
 
         // Send a success response
-        res.status(200).json({ message: "Hardness level deleted successfully", data: deletedHardnessRecord });
+        res.status(200).json({ status: 200, message: "Hardness level deleted successfully", data: deletedHardnessRecord });
     } catch (err) {
         res.status(500).json({ error: "Error deleting level" })
     }

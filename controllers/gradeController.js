@@ -17,7 +17,7 @@ exports.addGrade = async (req, res) => {
         if (!name || !min_point || !max_point) res.json({error: "Fill all fields please"})
 
         const newGrade = await Grade.create({ name, min_point, max_point });
-        res.json(newGrade);
+        res.json({status: 200, data: newGrade});
     } catch (err) {
         res.status(500).json({ error: "Error adding grade" })
     }
@@ -63,7 +63,7 @@ exports.deleteGrade = async (req, res) => {
         await deletedGradeRecord.destroy();
 
         // Send a success response
-        res.status(200).json({ message: "Grade deleted successfully", data: deletedGradeRecord });
+        res.status(200).json({ status: 200, message: "Grade deleted successfully", data: deletedGradeRecord });
     } catch (err) {
         res.status(500).json({ error: "Error deleting grade" })
     }

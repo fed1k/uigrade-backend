@@ -1,4 +1,5 @@
 const Question = require('../models/question');
+const Hardness = require("../models/hardness")
 const { deleteObject } = require('../util/deleteObject');
 const { formatObject } = require('../util/formatObject');
 
@@ -28,17 +29,20 @@ exports.addQuestion = async (req, res) => {
 
   const image1 = req.files.image1[0].key
   const image2 = req.files.image2[0].key
+
   
-  // console.log(question_text, level, image1, image2)
+  
   try {
+    const levelP = await Hardness.findByPk(level)
+
     const newQuestion = await Question.create({
       question_text,
       image1,
       image2,
-      level,
+      level: levelP.name,
       correct_answer: image1,
     });
-    res.json(newQuestion);
+    res.json({status: 200, data: newQuestion});
   } catch (err) {
     res.status(500).json({ error: 'Error adding question' });
   }
@@ -58,10 +62,14 @@ exports.deleteQuestion = async (req, res) => {
       return res.status(404).json({ error: 'Question not found' });
     }
 
+    // delete both images from s3
+    await deleteObject(question.image1)
+    await deleteObject(question.image2)
+
     await question.destroy();  // Delete the question
     // Delete the image from S3
     // await deleteObject(question.options.image);
-    res.json({ message: 'Question deleted successfully' });
+    res.json({ status: 200, message: 'Question deleted successfully' });
   } catch (err) {
     res.status(500).json({ error: 'Error deleting question' });
   }
