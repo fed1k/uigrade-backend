@@ -7,14 +7,32 @@ Result.init({
   score: {
     type: DataTypes.INTEGER,
     allowNull: false,
+    defaultValue: 0
+  },
+  grade: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "Junior"
   },
   timestamp: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,
   },
-  level_statistics: {
-    type: DataTypes.JSON,
+  status: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    defaultValue: "progress"
   },
+  correct_count: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0
+  },
+  wrong_count: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    defaultValue: 0
+  }
 }, {
   sequelize,
   modelName: 'Result',

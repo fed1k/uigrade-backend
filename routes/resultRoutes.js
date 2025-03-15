@@ -4,5 +4,8 @@ const resultController = require('../controllers/resultController');
 
 router.post('/submit', resultController.submitAnswer);
 router.post('/check', resultController.checkAnswer);
+router.post('/result', resultController.createResult);
+router.post("/mark-incomplete", resultController.markInComplete)
+router.get("/result/:result_id", resultController.getResult)
 
 module.exports = router;
