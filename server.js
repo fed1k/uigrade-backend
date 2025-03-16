@@ -21,7 +21,7 @@ app.use('/api', hardnessRoutes)
 app.use('/api', gradeRoutes)
 app.use('/api', statRoutes)
 
-sequelize.sync()
+sequelize.sync({ alter: true })
   .then(() => console.log('Database synced'))
   .catch((err) => console.log('Error syncing database: ', err));
 
