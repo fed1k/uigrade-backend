@@ -113,6 +113,22 @@ exports.getResult = async(req, res) => {
 
 
   } catch (err) {
-    res.status(500).json({error: "Error getting final result"})
+    res.status(500).json({error: err.message})
+  }
+}
+
+exports.getResults = async(req, res) => {
+  try {
+    const result = await Result.findAll()
+
+    if (!result) {
+      return res.status(404).json({ error: 'Result not found' });
+    }
+
+    res.status(200).json({status: 200, data: result})
+
+
+  } catch (err) {
+    res.status(500).json({error: err.message})
   }
 }
