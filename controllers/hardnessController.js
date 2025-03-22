@@ -43,7 +43,7 @@ exports.editHardnessLevel = async (req, res) => {
         await hardnessRecord.save();
 
         // Send a success response
-        res.status(200).json({ message: "Hardness level updated successfully", data: hardnessRecord });
+        res.status(200).json({status: 200, message: "Hardness level updated successfully", data: hardnessRecord });
 
     } catch (err) {
         res.status(500).json({ error: "Error editing level" })

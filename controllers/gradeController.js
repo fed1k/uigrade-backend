@@ -42,7 +42,7 @@ exports.editGrade = async (req, res) => {
         await gradeRecord.save();
 
         // Send a success response
-        res.status(200).json({ message: "Grade updated successfully", data: gradeRecord });
+        res.status(200).json({  status:200, message: "Grade updated successfully", data: gradeRecord });
     } catch (err) {
         res.status(500).json({ error: "Error editing grade" })
     }
