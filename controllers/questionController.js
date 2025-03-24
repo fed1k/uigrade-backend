@@ -121,6 +121,7 @@ exports.editQuestion = async (req, res) => {
     question.image1 = image1;
     question.image2 = image2;
     question.desc = desc
+    question.correct_answer = image1
     await question.save();
 
     res.json({ status: 200, message: 'Question updated successfully', data: question });
