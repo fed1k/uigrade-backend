@@ -16,7 +16,7 @@ exports.getQuestionsByLevel = async (req, res) => {
     questions = questions.map((qstn) => qstn.get({ plain: true }));
 
     let hardnessRecords = await Hardness.findAll()
-    hardnessRecords = hardnessRecords.map((hrd) => hrd.get({plain: true}))
+    hardnessRecords = hardnessRecords.map((hrd) => hrd.get({ plain: true }))
 
     questions = questions.map((qstn) => {
       const hardLvl = hardnessRecords.find(el => el.id == qstn.level)
@@ -111,17 +111,19 @@ exports.editQuestion = async (req, res) => {
     // Delete the old images from S3 if new images are uploaded
     if (req?.files?.image1 && question.image1) {
       await deleteObject(question.image1);
+      question.image1 = image1;
+      question.correct_answer = image1
     }
     if (req?.files?.image2 && question.image2) {
       await deleteObject(question.image2);
+      question.image2 = image2;
     }
 
     // Update the question with the new data
     question.question_text = question_text;
-    question.image1 = image1;
-    question.image2 = image2;
+    
     question.desc = desc
-    question.correct_answer = image1
+    
     await question.save();
 
     res.json({ status: 200, message: 'Question updated successfully', data: question });
