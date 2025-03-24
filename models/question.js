@@ -12,6 +12,10 @@ Question.init({
     type: DataTypes.STRING,
     allowNull: false,
   },
+  desc: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
   correct_answer: {
     type: DataTypes.STRING,
     allowNull: false,

@@ -13,8 +13,6 @@ exports.submitAnswer = async (req, res) => {
 exports.checkAnswer = async (req, res) => {
   const { question_id, answer, result_id } = req.body;
 
-  console.log(question_id, answer, result_id)
-
   try {
     // Run both queries in parallel
     const [questiono, resulto] = await Promise.all([
@@ -32,11 +30,8 @@ exports.checkAnswer = async (req, res) => {
 
     if (answer === questiono.correct_answer) {
       
-      const hardnessRecord = await Hardness.findOne({
-        where: {
-          name: questiono.level
-        }
-      });
+      const hardnessRecord = await Hardness.findByPk(questiono.level);
+
 
 
       resulto.correct_count += 1
