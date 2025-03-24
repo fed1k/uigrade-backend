@@ -17,7 +17,7 @@ const uploadService = multer({
     key: function (req, file, cb) {
       cb(
         null,
-        `image-${Date.now().toString()}${path.extname(file.originalname)}`
+        `image-${Math.floor(Math.random() * 100000)}-${file.originalname}`
       );
     },
   }),
